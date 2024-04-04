@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>GitHub Actions talk</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.0.5/reset.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.0.5/reveal.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.0.5/theme/blood.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://storage.googleapis.com/app.klipse.tech/css/codemirror.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.0.5/plugin/highlight/monokai.min.css"
+    />
+    <style>
+      /* Position computations of klipse get confused by reveal.js's scaling.
+       Hence, scaling should be disabled with this code.  Fix height of code area
+       with scrollbar (use overflow instead of overflow-y to restore CodeMirror
+       setting afterwards): */
+      .reveal section pre {
+        max-height: 70vh;
+        height: auto;
+        overflow: auto;
+      }
+
+      /* Reset some reveal.js and oer-reveal settings: */
+      .reveal section pre .CodeMirror pre {
+        font-size: 2em;
+        box-shadow: none;
+        width: auto;
+        padding: 0.4em;
+        display: block;
+        overflow: visible;
+      }
+
+      /* Enlarge cursor: */
+      .CodeMirror-cursor {
+        border-left: 3px solid black;
+      }
+
+      .cm-s-default {
+        font-size: 1em;
+        line-height: 1.5em;
+        font-family: inconsolata, monospace;
+        letter-spacing: 0.3px;
+        word-spacing: 1px;
+        background: #272822;
+        color: #f8f8f2;
+      }
+
+      .cm-s-default .CodeMirror-lines {
+        padding: 8px 0;
+      }
+
+      .cm-s-default .CodeMirror-gutters {
+        box-shadow: 1px 0 2px 0 rgba(0, 0, 0, 0.5);
+        -webkit-box-shadow: 1px 0 2px 0 rgba(0, 0, 0, 0.5);
+        background-color: #272822;
+        padding-right: 10px;
+        z-index: 3;
+        border: none;
+      }
+
+      .cm-s-default div.CodeMirror-cursor {
+        border-left: 3px solid #f8f8f2;
+      }
+
+      .cm-s-default .CodeMirror-activeline-background {
+        background: #49483e;
+      }
+
+      .cm-s-default .CodeMirror-selected {
+        background: #49483e;
+      }
+
+      .cm-s-default .cm-comment {
+        color: #75715e;
+      }
+
+      .cm-s-default .cm-string {
+        color: #e6db74;
+      }
+
+      .cm-s-default .cm-number {
+        color: #66d9ef;
+      }
+
+      .cm-s-default .cm-atom {
+        color: #66d9ef;
+      }
+
+      .cm-s-default .cm-keyword {
+        color: #f92672;
+      }
+
+      .cm-s-default .cm-variable {
+        color: #a6e22e;
+      }
+
+      .cm-s-default .cm-def {
+        font-style: italic;
+        color: #fd971f;
+      }
+
+      .cm-s-default .cm-variable-2 {
+        color: #f92672;
+      }
+
+      .cm-s-default .cm-property {
+        color: #66d9ef;
+      }
+
+      .cm-s-default .cm-operator {
+        color: #f92672;
+      }
+
+      .cm-s-default .CodeMirror-linenumber {
+        color: #75715e;
+      }
+    </style>
+    <script>
+      window.klipse_settings = {
+        codemirror_options_in: {
+          autoCloseBrackets: true,
+        },
+        selector: '.language-klipse',
+        selector_eval_js: '.language-klipse-js',
+      };
+    </script>
+  </head>
+
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section>
+          <h1>Hello!</h1>
+        </section>
+        <section>
+          <h2>What are GitHub Actions anyway?</h2>
+        </section>
+        <section>
+          <h2>What can you do with them?</h2>
+          <ul>
+            <li data-fragment-index="1" class="fragment">Linting PHP/JS</li>
+            <li data-fragment-index="2" class="fragment">Testing</li>
+            <li data-fragment-index="3" class="fragment">Building</li>
+            <li data-fragment-index="3" class="fragment">
+              <span class="fragment highlight-blue">Calculators with terrible UX</span>
+            </li>
+            <li data-fragment-index="4" class="fragment">Deployment</li>
+          </ul>
+        </section>
+        <section>
+          <section>
+            <h2>Let's start simple</h2>
+          </section>
+          <section>
+            <pre>
+            <code data-line-numbers="1|2-3|4-5|7-11" data-trim data-noescape>
+              name: Simple Action Calculator
+              on:
+                workflow_dispatch:
+              jobs:
+                calculate:
+                  runs-on: ubuntu-latest
+                  steps:
+                    - name: Perform calculation
+                      run: |
+                        calculation="3 + 4"
+                        echo "$calculation = $(( $calculation ))"
+            </code>
+            </pre>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h2>Time to spice it up a little</h2>
+          </section>
+          <section>
+            <pre>
+            <code data-line-numbers="1-3|4|5-8|9-12|13-17|18-25" data-trim data-noescape>
+              name: Input Calculator
+              on:
+                workflow_dispatch:
+                  inputs:
+                    number1:
+                      description: 'First number'
+                      type: number
+                      required: true
+                    number2:
+                      description: 'Second number'
+                      type: number
+                      required: true
+                    operation:
+                      description: 'Operation'
+                      type: choice
+                      options: ['+', '*']
+                      required: true
+              jobs:
+                calculate:
+                  runs-on: ubuntu-latest
+                  steps:
+                    - name: Perform calculation
+                      run: |
+                        calculation="${{ inputs.number1 }} ${{ inputs.operation }} ${{ inputs.number2 }}"
+                        echo "$calculation = $(( calculation ))
+            </code>
+          </pre>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h2>Now let's start to make it annoying</h2>
+          </section>
+          <section>
+            <pre>
+              <code data-line-numbers="1-3|4|5-8|9-12|13-17|18-25" data-trim data-noescape>
+            name: Push calculator (bc)
+            on:
+              push:
+                branches:
+                  - main
+              workflow_dispatch:
+            permissions:
+              contents: write
+            jobs:
+              check-for-calculation:
+                name: Check for calculation
+                runs-on: ubuntu-latest
+                steps:
+                - name: checkout
+                  uses: actions/checkout@v4
+                  with:
+                    repository: clinton3141/inconvenient-calculator
+                - name: check for calculation
+                  id: check-for-calculation
+                  run: |
+                    if [ -s calculation-simple.txt ]; then
+                      echo "There's a calculation to do!"
+                      echo "has_calculation=true" >> "$GITHUB_OUTPUT"
+                    else
+                      echo "nothing to do"
+                      echo "has_calculation=false" >> "$GITHUB_OUTPUT"
+                    fi
+                outputs:
+                  has-calculation: ${{ steps.check-for-calculation.outputs.has_calculation }}
+              sanity-check:
+                name: Sanity check
+                runs-on: ubuntu-latest
+                needs: [check-for-calculation]
+                if: ${{ needs.check-for-calculation.outputs.has-calculation == 'true' }}
+                steps:
+                - name: checkout
+                  uses: actions/checkout@v4
+                  with:
+                    repository: clinton3141/inconvenient-calculator
+                - name: sanity check
+                  run: |
+                    if ! grep -qE '^[0-9+* ]+$' calculation-simple.txt; then
+                      echo "The calculator can only do addition and multiplication of integers"
+                      exit 1
+                    fi
+                    if [ $(wc -l < calculation-simple.txt) -gt 1 ]; then
+                      echo "Please put the calculation on a single line"
+                      exit 1
+                    fi
+              calculate:
+                name: Calculate
+                runs-on: ubuntu-latest
+                needs: [sanity-check]
+                steps:
+                - name: checkout
+                  uses: actions/checkout@v4
+                  with:
+                    repository: clinton3141/inconvenient-calculator
+                - name: do calculation
+                  run: |
+                    CALCULATION=$(cat calculation-simple.txt)
+                    RESULT=$(echo "$CALCULATION" | bc)
+                    echo $RESULT > results/${{ github.actor }}-${{ github.run_id }}.txt
+                - name: commit result
+                  run: |
+                    git config --local user.email "action@github.com"
+                    git config --local user.name "GitHub Action"
+                    git add .
+                    git commit -m "Add calculation result"
+                    git pull --rebase
+                    git push
+              </code></pre>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h2>Pretty cool. But can we make it worse?</h2>
+          </section>
+          <section>
+            <h2>What if I told you we can't use numbers?</h2>
+            <pre>
+              <code class="language-klipse-js">
+    ZERO = f => a => a
+    SUCC = n => f => a => f(n(f)(a))
+    ONE = SUCC(ZERO)
+    </code>
+            </pre>
+            <aside class="notes">
+              <p>Here's a note!</p>
+            </aside>
+          </section>
+
+        </section>
+
+        <section>
+          <h2>Another editor</h2>
+          <pre>
+          <code class="language-klipse-js">N(ONE)</code>
+          </pre>
+        </section>
+        <section>Slide 2</section>
+
+        <section>
+          <h2>Here's some maths</h2>
+          \[ \begin{align*} \dot{x} & = \sigma(y-x) \\ \dot{y} & = \rho x - y -
+          xz \\ \dot{z} & = -\beta z + xy\end{align*} \]
+        </section>
+      </div>
+    </div>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.0.5/reveal.min.js"
+      integrity="sha512-qlilMzyzbFMKgbgaC4kDhZ7citDePYlfm/rwmek5uKg3xtu+dPdPW2MYob42jDfG0PV5DDHk4haWEJsQFn32xA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.0.5/plugin/notes/notes.min.js"
+      integrity="sha512-/9WCotvRxf5+lapk+C+tbgcxOYAhQI0f0mX1QXzKeBsNzDH9LuvVFwJELQrh2fCJwtgXBtnnyB0N4Ynd3ucIzw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.0.5/plugin/math/math.min.js"
+      integrity="sha512-skPZpuRwuUAnF9iEEFBXc4zJaucKcHUDgY1wDBTv0ILy82C2gn8MJsbcinzj2u8r/iZjD/78HRgw2/n//poOhQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.0.5/plugin/markdown/markdown.min.js"
+      integrity="sha512-4exkEeyVuaWUFKozXl6L3UCugl6ai1cKnrVFkWUstdrNB2sDxxmPEaHBzTlYm9wX78EjPzEBG0s8k37oPeUFIw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.0.5/plugin/highlight/highlight.min.js"
+      integrity="sha512-xkVKkN0o7xECTHSUZ9zdsBYRXiAKH7CZ3aICpW6aQJZsufVVRLhEBTDjTpC1tPzm+gNZiOeW174zXAB2fOLsTg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script>
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        slideNumber: 'c',
+        rollingLinks: false,
+        keyboard: true,
+        mouseWheel: false,
+        fragmentInURL: false,
+        hashOneBasedIndex: false,
+        pdfSeparateFragments: true,
+        overview: true,
+        width: 1400,
+        height: 1000,
+        minScale: 1.0,
+        maxScale: 1.0,
+        transition: 'convex',
+        transitionSpeed: 'default',
+        plugins: [
+          RevealMarkdown,
+          RevealNotes,
+          RevealMath.KaTeX,
+          RevealHighlight,
+        ],
+      });
+    </script>
+    <script src="https://storage.googleapis.com/app.klipse.tech/plugin/js/klipse_plugin.js"></script>
+    <script>
+      Reveal.addEventListener('slidechanged', function (event) {
+        window.dispatchEvent(new Event('resize'));
+      });
+    </script>
+  </body>
+  undefined
+</html>
