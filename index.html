@@ -303,6 +303,46 @@
                     git push
               </code></pre>
           </section>
+          <section>
+            <h2>That's pretty annoying.</h2>
+            <p>But now... how about adding danger by deleting the results?</p>
+          </section>
+          <section>
+
+            <pre>
+              <code data-line-numbers="1-3|4|5-8|9-12|13-17|18-25" data-trim data-noescape>
+                name: Tidy Up
+
+                on:
+                  schedule:
+                    - cron: "*/5 * * * *"
+                  workflow_dispatch:
+
+                permissions:
+                  contents: write
+
+                jobs:
+                  tidy-up:
+                    runs-on: ubuntu-latest
+
+                    steps:
+                      - name: Checkout repository
+                        uses: actions/checkout@v4
+
+                      - name: Delete files in results directory
+                        run: |
+                          if [ -n "$(ls results)" ]; then
+                            rm results/*.txt
+                            git config --local user.email "action@github.com"
+                            git config --local user.name "GitHub Action"
+                            git add .
+                            git commit -m "Tidy up results directory"
+                            git pull --rebase
+                            git push
+                          fi
+
+              </code></pre>
+          </section>
         </section>
         <section>
           <section>
@@ -325,12 +365,18 @@
         </section>
 
         <section>
-          <h2>Another editor</h2>
+          <h2>Here's an editor with N predefined</h2>
+          <script>
+            const N = n => n(x => x + 1)(0)
+          </script>
           <pre>
-          <code class="language-klipse-js">N(ONE)</code>
+          <code class="language-klipse-js">
+            ZERO = f => a => a
+            ONE = f => a => f(a)
+            N(f => a => a)
+          </code>
           </pre>
         </section>
-        <section>Slide 2</section>
 
         <section>
           <h2>Here's some maths</h2>
