@@ -347,26 +347,6 @@ jobs:
                     fi
                 outputs:
                   has-calculation: ${{ steps.check-for-calculation.outputs.has_calculation }}
-              sanity-check:
-                name: Sanity check
-                runs-on: ubuntu-latest
-                needs: [check-for-calculation]
-                if: ${{ needs.check-for-calculation.outputs.has-calculation == 'true' }}
-                steps:
-                - name: checkout
-                  uses: actions/checkout@v4
-                  with:
-                    repository: clinton3141/inconvenient-calculator
-                - name: sanity check
-                  run: |
-                    if ! grep -qE '^[0-9+* ]+$' calculation-simple.txt; then
-                      echo "The calculator can only do addition and multiplication of integers"
-                      exit 1
-                    fi
-                    if [ $(wc -l < calculation-simple.txt) -gt 1 ]; then
-                      echo "Please put the calculation on a single line"
-                      exit 1
-                    fi
               calculate:
                 name: Calculate
                 runs-on: ubuntu-latest
