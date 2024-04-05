@@ -151,18 +151,104 @@
           <h1>Hello!</h1>
         </section>
         <section>
-          <h2>What are GitHub Actions anyway?</h2>
+          <section>
+            <h2>What are GitHub Actions anyway? 🧐</h2>
+            <ul>
+              <li data-fragment-index="1" class="fragment">
+                <span>Automated tasks</span>
+              </li>
+              <li data-fragment-index="2" class="fragment">
+                Triggered by events
+                <span data-fragment-index="3" class="fragment">
+                  <span data-fragment-index="3" class="fragment highlight-red">
+                    <span data-fragment-index="4" class="fragment semi-fade-out">
+                      push, pull request, cron, and more...
+                    </span>
+                  </span>
+                </span>
+              </li>
+              <li data-fragment-index="4" class="fragment">
+                Fully customisable workflows
+                  <span data-fragment-index="7" class="fragment">
+                    <span data-fragment-index="7" class="fragment highlight-red">
+                      <span data-fragment-index="8" class="fragment semi-fade-out">
+                        written by developers
+                      </span>
+                    </span>
+                  </span>
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h2>Anatomy of<br/>an action 🔬</h2>
+            <p>Written in YAML and comprises of:</p>
+            <ol>
+              <li class="fragment" data-fragment-index="1">
+                Options for customising the action, environment and permissions<br />
+                <span class="fragment" data-fragment-index="2">
+                  <span class="fragment highlight-red" data-fragment-index="2">
+                    <span class="fragment semi-fade-out" data-fragment-index="3">
+                      name, concurrency, default settings for jobs
+                    </span>
+                  </span>
+                </span>
+              </li>
+              <li class="fragment" data-fragment-index="3">
+                Triggers and configuration<br />
+                <span class="fragment" data-fragment-index="4">
+                  <span class="fragment highlight-red" data-fragment-index="4">
+                    <span class="fragment semi-fade-out" data-fragment-index="5">
+                      branch name, filters, cron timings
+                    </span>
+                  </span>
+                </span>
+              </li>
+              <li class="fragment" data-fragment-index="5">
+                List of jobs with steps to complete their task<br />
+                <span class="fragment" data-fragment-index="6">
+                  <span class="fragment highlight-red" data-fragment-index="6">
+                    <span class="fragment semi-fade-out" data-fragment-index="7">
+                      check out code, run scripts, patch databases, ...
+                    </span>
+                  </span>
+                </span>
+              </li>
+            </ol>
+          </section>
+          <section>
+            <pre>
+              <code data-line-numbers="|1-3|4-5|6-19|7-12|13-19|" data-trim data-noescape>
+name: Hello world
+permissions:
+  discussions: write
+on:
+  workflow_dispatch:
+jobs:
+  job1:
+    name: Job 1
+    runs-on: ubuntu-latest
+    steps:
+      - name: Hello world
+        run: echo "Hello world"
+  job2:
+    name: Job 2
+    runs-on: ubuntu-latest
+    needs: [job1]
+    steps:
+      - name: foo
+        run: echo "bar"
+              </code>
+            </pre>
+          </section>
         </section>
         <section>
-          <h2>What can you do with them?</h2>
+          <h2>So what are<br/>they good for?</h2>
           <ul>
-            <li data-fragment-index="1" class="fragment">Linting PHP/JS</li>
+            <li data-fragment-index="1" class="fragment">Linting</li>
             <li data-fragment-index="2" class="fragment">Testing</li>
             <li data-fragment-index="3" class="fragment">Building</li>
-            <li data-fragment-index="3" class="fragment">
-              <span class="fragment highlight-blue">Calculators with terrible UX</span>
-            </li>
             <li data-fragment-index="4" class="fragment">Deployment</li>
+            <li data-fragment-index="5" class="fragment">Building calculators with terrible UX</li>
           </ul>
         </section>
         <section>
@@ -171,7 +257,7 @@
           </section>
           <section>
             <pre>
-            <code data-line-numbers="1|2-3|4-5|7-11" data-trim data-noescape>
+            <code data-line-numbers="|1|2-3|4-11|9-11|" data-trim data-noescape>
               name: Simple Action Calculator
               on:
                 workflow_dispatch:
@@ -185,15 +271,16 @@
                         echo "$calculation = $(( $calculation ))"
             </code>
             </pre>
+            <p class="fragment"><a href="https://github.com/clinton3141/inconvenient-calculator/actions/workflows/simple-action-calculator.yml" target="_blank">Go</a></p>
           </section>
         </section>
         <section>
           <section>
-            <h2>Time to spice it up a little</h2>
+            <h2>Time to spice it<br />up a little 🌶️</h2>
           </section>
           <section>
             <pre>
-            <code data-line-numbers="1-3|4|5-8|9-12|13-17|18-25" data-trim data-noescape>
+            <code data-line-numbers="|1|2-17|18-25|2-4|5-8|9-12|13-17|2-17|22-25|" data-trim data-noescape>
               name: Input Calculator
               on:
                 workflow_dispatch:
@@ -221,6 +308,7 @@
                         echo "$calculation = $(( calculation ))
             </code>
           </pre>
+          <p class="fragment"><a target="_blank" href="https://github.com/clinton3141/inconvenient-calculator/actions/workflows/input-calculator.yml">Go</a></p>
           </section>
         </section>
         <section>
@@ -229,15 +317,15 @@
           </section>
           <section>
             <pre>
-              <code data-line-numbers="1-3|4|5-8|9-12|13-17|18-25" data-trim data-noescape>
+              <code data-line-numbers="" data-trim data-noescape>
             name: Push calculator (bc)
+            permissions:
+              contents: write
             on:
               push:
                 branches:
                   - main
               workflow_dispatch:
-            permissions:
-              contents: write
             jobs:
               check-for-calculation:
                 name: Check for calculation
@@ -302,33 +390,29 @@
                     git pull --rebase
                     git push
               </code></pre>
+              <p class="fragment"><a target="_blank" href="https://github.com/clinton3141/inconvenient-calculator/actions/workflows/push-calculator-bc.yml">Go</a></p>
           </section>
           <section>
             <h2>That's pretty annoying.</h2>
-            <p>But now... how about adding danger by deleting the results?</p>
+            <p class="fragment"><span class="fragment fade-in">But... let's really provoke the users by deleting their results</span></p>
           </section>
           <section>
 
             <pre>
-              <code data-line-numbers="1-3|4|5-8|9-12|13-17|18-25" data-trim data-noescape>
+              <code data-line-numbers="|1-3|4-7|8-24|12-13|14-24|" data-trim data-noescape>
                 name: Tidy Up
-
+                permissions:
+                  contents: write
                 on:
                   schedule:
                     - cron: "*/5 * * * *"
                   workflow_dispatch:
-
-                permissions:
-                  contents: write
-
                 jobs:
                   tidy-up:
                     runs-on: ubuntu-latest
-
                     steps:
                       - name: Checkout repository
                         uses: actions/checkout@v4
-
                       - name: Delete files in results directory
                         run: |
                           if [ -n "$(ls results)" ]; then
@@ -340,8 +424,8 @@
                             git pull --rebase
                             git push
                           fi
-
               </code></pre>
+              <p class="fragment fade-in"><a target="_blank" href="https://github.com/clinton3141/inconvenient-calculator/actions/workflows/tidyup.yml">Go</a></p>
           </section>
         </section>
         <section>
