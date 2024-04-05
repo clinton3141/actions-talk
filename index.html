@@ -216,7 +216,7 @@
             </ol>
           </section>
           <section>
-            <pre>
+            <pre class="yaml">
               <code data-line-numbers="|1-3|4-5|6-19|7-12|13-19|" data-trim data-noescape>
 name: Hello world
 permissions:
@@ -256,7 +256,7 @@ jobs:
             <h2>Let's start simple</h2>
           </section>
           <section>
-            <pre>
+            <pre class="yaml">
             <code data-line-numbers="|1|2-3|4-11|9-11|" data-trim data-noescape>
               name: Simple Action Calculator
               on:
@@ -279,8 +279,8 @@ jobs:
             <h2>Time to spice it<br />up a little 🌶️</h2>
           </section>
           <section>
-            <pre>
-            <code data-line-numbers="|1|2-17|18-25|2-4|5-8|9-12|13-17|2-17|22-25|" data-trim data-noescape>
+            <pre class="yaml">
+            <code data-line-numbers="|1|2-17|18-25|2-4|5-8|9-12|13-17|18-19|21-25|" data-trim data-noescape>
               name: Input Calculator
               on:
                 workflow_dispatch:
@@ -316,8 +316,8 @@ jobs:
             <h2>Now let's start to make it annoying</h2>
           </section>
           <section>
-            <pre>
-              <code data-line-numbers="" data-trim data-noescape>
+            <pre class="yaml">
+              <code data-line-numbers="|1-3|4-8|9-51|2-3|4-7|9-10|10,13-17|18-28|23,24,27|29-31|32,35,36|37-41|42-45|46-53|" data-trim data-noescape>
             name: Push calculator (bc)
             permissions:
               contents: write
@@ -327,30 +327,33 @@ jobs:
                   - main
               workflow_dispatch:
             jobs:
-              check-for-calculation:
-                name: Check for calculation
+              get-calculation:
+                name: Get calculation
                 runs-on: ubuntu-latest
                 steps:
                 - name: checkout
                   uses: actions/checkout@v4
                   with:
                     repository: clinton3141/inconvenient-calculator
-                - name: check for calculation
-                  id: check-for-calculation
+                - name: Read calculation file
+                  id: read-calculation
                   run: |
                     if [ -s calculation-simple.txt ]; then
                       echo "There's a calculation to do!"
                       echo "has_calculation=true" >> "$GITHUB_OUTPUT"
+                      echo "calculation=$(cat calculation-simple.txt)" >> "$GITHUB_OUTPUT"
                     else
                       echo "nothing to do"
                       echo "has_calculation=false" >> "$GITHUB_OUTPUT"
                     fi
                 outputs:
-                  has-calculation: ${{ steps.check-for-calculation.outputs.has_calculation }}
+                  has-calculation: ${{ steps.read-calculation.outputs.has_calculation }}
+                  calculation: ${{ steps.read-calculation.outputs.calculation }}
               calculate:
                 name: Calculate
                 runs-on: ubuntu-latest
-                needs: [check-for-calculation]
+                needs: [get-calculation]
+                if: ${{ needs.get-calculation.outputs.has-calculation == 'true' }}
                 steps:
                 - name: checkout
                   uses: actions/checkout@v4
@@ -358,8 +361,7 @@ jobs:
                     repository: clinton3141/inconvenient-calculator
                 - name: do calculation
                   run: |
-                    CALCULATION=$(cat calculation-simple.txt)
-                    RESULT=$(echo "$CALCULATION" | bc)
+                    RESULT=$(echo "${{ needs.get-calculation.outputs.calculation }}" | bc)
                     echo $RESULT > results/${{ github.actor }}-${{ github.run_id }}.txt
                 - name: commit result
                   run: |
@@ -374,12 +376,12 @@ jobs:
           </section>
           <section>
             <h2>That's pretty annoying.</h2>
-            <p class="fragment"><span class="fragment fade-in">But... let's really provoke the users by deleting their results</span></p>
+            <p class="fragment fade-in">But... let's really provoke the users by deleting their results</p>
           </section>
           <section>
 
-            <pre>
-              <code data-line-numbers="|1-3|4-7|8-24|12-13|14-24|" data-trim data-noescape>
+            <pre class="yaml">
+              <code data-line-numbers="|1-3|4-7|8-24|5-6|8,9,12-13|14-24|" data-trim data-noescape>
                 name: Tidy Up
                 permissions:
                   contents: write
@@ -396,10 +398,9 @@ jobs:
                       - name: Delete files in results directory
                         run: |
                           if [ -n "$(ls results)" ]; then
-                            rm results/*.txt
+                            git rm results/*.txt
                             git config --local user.email "action@github.com"
                             git config --local user.name "GitHub Action"
-                            git add .
                             git commit -m "Tidy up results directory"
                             git pull --rebase
                             git push
