@@ -148,7 +148,17 @@
     <div class="reveal">
       <div class="slides">
         <section>
-          <h1>Hello!</h1>
+          <section>
+            <h1>Hello!</h1>
+          </section>
+          <section>
+            <h2>The plan 🧭</h2>
+            <ul>
+              <li class="fragment">Introduce GitHub Actions</li>
+              <li class="fragment">Demystify their structure</li>
+              <li class="fragment">Work through putting an action together</li>
+            </ul>
+          </section>
         </section>
         <section>
           <section>
@@ -181,7 +191,7 @@
           </section>
           <section>
             <h2>Anatomy of<br/>an action 🔬</h2>
-            <p>Written in YAML and comprises of:</p>
+            <p class="fragment" data-fragment-index="0">Written in YAML and comprises of:</p>
             <ol>
               <li class="fragment" data-fragment-index="1">
                 Options for customising the action, environment and permissions<br />
@@ -217,7 +227,7 @@
           </section>
           <section>
             <pre class="yaml">
-              <code data-line-numbers="|1-3|4-5|6-19|7-12|13-19|" data-trim data-noescape>
+              <code data-line-numbers="|1-3|4-5|6-21|7-14|15-21|7,10-14|15,18|15,19-21" data-trim data-noescape>
 name: Hello world
 permissions:
   discussions: write
@@ -230,6 +240,8 @@ jobs:
     steps:
       - name: Hello world
         run: echo "Hello world"
+      - name: Bonjour
+        run: echo "Salut le monde"
   job2:
     name: Job 2
     runs-on: ubuntu-latest
@@ -242,7 +254,7 @@ jobs:
           </section>
         </section>
         <section>
-          <h2>So what are<br/>they good for?</h2>
+          <h2>So what are<br/>they good for? 🤔</h2>
           <ul>
             <li data-fragment-index="1" class="fragment">Linting</li>
             <li data-fragment-index="2" class="fragment">Testing</li>
@@ -253,11 +265,18 @@ jobs:
         </section>
         <section>
           <section>
-            <h2>Let's start simple</h2>
+            <h2>Let's start simple 🧸</h2>
+          </section>
+          <section>
+            <h2>Requirements</h2>
+            <ul>
+              <li class="fragment">only calculate 3 + 4</li>
+              <li class="fragment">print the result to the screen</li>
+            </ul>
           </section>
           <section>
             <pre class="yaml">
-            <code data-line-numbers="|1|2-3|4-11|9-11|" data-trim data-noescape>
+            <code data-line-numbers="|1|2-3|4-11|9-11" data-trim data-noescape>
               name: Simple Action Calculator
               on:
                 workflow_dispatch:
@@ -273,14 +292,24 @@ jobs:
             </pre>
             <p class="fragment"><a href="https://github.com/clinton3141/inconvenient-calculator/actions/workflows/simple-action-calculator.yml" target="_blank">Go</a></p>
           </section>
+          <section>
+            <iframe src="https://giphy.com/embed/3o7btNa0RUYa5E7iiQ" width="480" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+          </section>
         </section>
         <section>
           <section>
             <h2>Time to spice it<br />up a little 🌶️</h2>
           </section>
           <section>
+            <h2>Requirements</h2>
+            <ul>
+              <li class="fragment">ask the user for numbers and operation</li>
+              <li class="fragment">do the calculation and print the result to the screen</li>
+            </ul>
+          </section>
+          <section>
             <pre class="yaml">
-            <code data-line-numbers="|1|2-17|18-25|2-4|5-8|9-12|13-17|18-19|21-25|" data-trim data-noescape>
+            <code data-line-numbers="|1|2-17|18-25|2-4|5-8|9-12|13-17|18-19|21-25" data-trim data-noescape>
               name: Input Calculator
               on:
                 workflow_dispatch:
@@ -310,14 +339,26 @@ jobs:
           </pre>
           <p class="fragment"><a target="_blank" href="https://github.com/clinton3141/inconvenient-calculator/actions/workflows/input-calculator.yml">Go</a></p>
           </section>
+          <section>
+            <iframe src="https://giphy.com/embed/111ebonMs90YLu" width="480" height="360" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+          </section>
         </section>
         <section>
           <section>
-            <h2>Now let's start to make it annoying</h2>
+            <h2>Now let's start to make it annoying 😤</h2>
+          </section>
+          <section>
+            <h2>Requirements</h2>
+            <ul>
+              <li class="fragment">write a calculation in a text file</li>
+              <li class="fragment">commit the file and push to github</li>
+              <li class="fragment">result is written to another text file</li>
+              <li class="fragment">pull from github to get the result</li>
+            </ul>
           </section>
           <section>
             <pre class="yaml">
-              <code data-line-numbers="|1-3|4-8|9-51|2-3|4-7|9-10|10,13-17|18-28|23,24,27|29-31|32,35,36|37-41|42-45|46-53|" data-trim data-noescape>
+              <code data-line-numbers="|1-3|4-8|9-51|2-3|4-7|9-10|10,13-17|18-28|23,24,27|29-31|32,35,36|37-41|42-45|46-53" data-trim data-noescape>
             name: Push calculator (bc)
             permissions:
               contents: write
@@ -375,13 +416,20 @@ jobs:
               <p class="fragment"><a target="_blank" href="https://github.com/clinton3141/inconvenient-calculator/actions/workflows/push-calculator-bc.yml">Go</a></p>
           </section>
           <section>
-            <h2>That's pretty annoying.</h2>
+            <h2>That's pretty annoying</h2>
+            <iframe src="https://giphy.com/embed/ktCzb8Rm8aoow" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
             <p class="fragment fade-in">But... let's really provoke the users by deleting their results</p>
           </section>
           <section>
-
+            <h2>Requirements</h2>
+            <ul>
+              <li class="fragment">run periodically (cron)</li>
+              <li class="fragment">delete all results</li>
+            </ul>
+          </section>
+          <section>
             <pre class="yaml">
-              <code data-line-numbers="|1-3|4-7|8-24|5-6|8,9,12-13|14-24|" data-trim data-noescape>
+              <code data-line-numbers="|1-3|4-7|8-24|5-6|8,9,12-13|14-24" data-trim data-noescape>
                 name: Tidy Up
                 permissions:
                   contents: write
@@ -408,45 +456,277 @@ jobs:
               </code></pre>
               <p class="fragment fade-in"><a target="_blank" href="https://github.com/clinton3141/inconvenient-calculator/actions/workflows/tidyup.yml">Go</a></p>
           </section>
+          <section>
+
+            <iframe src="https://giphy.com/embed/S2whkd4LyloiI" width="417" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+
+          </section>
         </section>
         <section>
           <section>
-            <h2>Pretty cool. But can we make it worse?</h2>
+            <h2>Pretty cool. But can we make it worse? 🤬</h2>
+            <img class="fragment" src="./images/calculate-without-numbers.jpg" />
           </section>
           <section>
-            <h2>What if I told you we can't use numbers?</h2>
+            <h2>Aside: Church Encoding (numbers as functions)</h2>
+            <ul>
+              <li class="fragment">think of numbers as repetitions instead of counts</li>
+              <li class="fragment">we can build everything up from zero and a successor function</li>
+              <li class="fragment">described in "Church, A. (1941) The Calculi of Lambda-Conversion.<br/>Annals of Mathematics Studies No. 6, Princeton University Press"</li>
+            </ul>
+           </section>
+           <section>
+            <h2>A deep dive into Lambda Calculus</h2>
+              <span class="fragment">
+                \[f^{\circ n}=\underbrace {f\circ f\circ \cdots \circ f} _{n{\text{ times}}}.\]
+              </span>
+              <span class="fragment">
+                \[\operatorname {succ} \equiv \lambda n.\lambda f.\lambda x.f\ (n\ f\ x)\]
+              </span>
+            <img src="./images/Trollface.png" class="fragment" style="position: absolute; top:50px; left: 40%" />
+           </section>
+           <section>
+            <h2>Let's invent it</h2>
             <pre>
               <code class="language-klipse-js">
-    ZERO = f => a => a
-    SUCC = n => f => a => f(n(f)(a))
-    ONE = SUCC(ZERO)
     </code>
             </pre>
             <aside class="notes">
-              <p>Here's a note!</p>
+<pre>
+Add: two numbers: m, n. return a number.
+That means we have OP: m => n => number
+i.e. m => n => f => a => ...
+
+// Add `m` aplications of `f` to
+// THE NUMBER n(f)(x)
+
+ADD = m => n => f => a => m(f)(n(f)(a))
+
+// do `b` applications of `f` `a` times.
+// i.e. `b` times `a`
+const MUL = a => b => f => x => a(b(f))(x)
+</pre>
             </aside>
           </section>
+          <section>
+            <iframe src="https://giphy.com/embed/21I1WOUDnct4EmSNa6" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+          </section>
+          <section>
+            <h2>Requirements</h2>
+            <ul>
+              <li class="fragment">same as before but the text file cannot contain numbers</li>
+              <li class="fragment">bonus: ensure the input is safe</li>
+              <li class="fragment">bonus: use a build system</li>
+              <li class="fragment">bonus: use scripts</li>
+            </ul>
+          </section>
 
+          <section>
+            <pre class="yaml">
+              <code data-line-numbers="|1-3|4-8|9-107|10-29|30-37|38-41|42-43|44-49|50-55|56-58|59-64|65-69|70-73|74-79|80-81|82-86|87-90|91-96|97-99|100-107" data-trim data-noescape>
+            name: Push calculator (church)
+            permissions:
+              contents: write
+            on:
+              push:
+                branches:
+                  - main
+              workflow_dispatch:
+            jobs:
+              check-for-calculation:
+                name: Check for calculation
+                runs-on: ubuntu-latest
+                steps:
+                - name: checkout
+                  uses: actions/checkout@v4
+                  with:
+                    repository: clinton3141/inconvenient-calculator
+                - name: Read calculation file
+                  id: read-calculation
+                  run: |
+                    if [ -s calculation.txt ]; then
+                      echo "There's a calculation to do!"
+                      echo "has_calculation=true" >> "$GITHUB_OUTPUT"
+                    else
+                      echo "nothing to do"
+                      echo "has_calculation=false" >> "$GITHUB_OUTPUT"
+                    fi
+                outputs:
+                  has_calculation: ${{ steps.read-calculation.outputs.has_calculation }}
+              setup:
+                name: Setup and build
+                needs: [check-for-calculation]
+                if: ${{ needs.check-for-calculation.outputs.has_calculation == 'true' }}
+                runs-on: ubuntu-latest
+                outputs:
+                  cache-hit: ${{ steps.restore-modules.outputs.cache-hit }}
+                steps:
+                - name: checkout
+                  uses: actions/checkout@v4
+                  with:
+                    repository: clinton3141/inconvenient-calculator
+                - name: setup node
+                  uses: actions/setup-node@v4
+                - name: restore modules
+                  id: restore-modules
+                  uses: actions/cache@v4
+                  with:
+                    path: ./node_modules
+                    key: ${{ runner.os }}-${{ hashFiles('./package.json') }}
+                - name: restore build
+                  id: restore-build
+                  uses: actions/cache@v4
+                  with:
+                    path: ./dist
+                    key: ${{ runner.os }}-${{ hashFiles('./src/**/*.js','./package.json') }}
+                - name: npm install
+                  if: steps.restore-modules.outputs.cache-hit != 'true'
+                  run: npm install
+                - name: build js
+                  if: steps.restore-modules.outputs.cache-hit != 'true' || steps.restore-build.outputs.cache-hit != 'true'
+                  run: |
+                    rm -rf dist
+                    mkdir dist
+                    npm run build
+              sanity-check:
+                name: Sanity check
+                runs-on: ubuntu-latest
+                needs: [setup]
+                steps:
+                - name: checkout
+                  uses: actions/checkout@v4
+                  with:
+                    repository: clinton3141/inconvenient-calculator
+                - name: restore build
+                  id: restore-build
+                  uses: actions/cache@v4
+                  with:
+                    path: ./dist
+                    key: ${{ runner.os }}-${{ hashFiles('./src/**/*.js','./package.json') }}
+                - name: safety check
+                  run: npm run safety-check
+              calculate:
+                name: Calculate
+                runs-on: ubuntu-latest
+                needs: [sanity-check]
+                steps:
+                - name: checkout
+                  uses: actions/checkout@v4
+                  with:
+                    repository: clinton3141/inconvenient-calculator
+                - name: restore build
+                  id: restore-build
+                  uses: actions/cache@v4
+                  with:
+                    path: ./dist
+                    key: ${{ runner.os }}-${{ hashFiles('./src/**/*.js','./package.json') }}
+                - name: do calculation
+                  run: |
+                    npm run calculate -- ${{ github.actor }}-${{ github.run_id }}.txt
+                - name: commit result
+                  run: |
+                    git config --local user.email "action@github.com"
+                    git config --local user.name "GitHub Action"
+                    git add .
+                    git commit -m "Add calculation result"
+                    git pull --rebase
+                    git push
+          </pre></code>
+          </section>
+          <section>
+            <h4>Under the hood of &nbsp;<code>npm run safety-check</code></h4>
+            <pre class="javascript">
+              <code data-trim data-noescape data-line-numbers="|4,6|12,13|15-21">
+                const fs = require('fs');
+                const path = require('path');
+
+                const filePath = path.join(__dirname, '../calculation.txt');
+
+                fs.readFile(filePath, 'utf8', (err, data) => {
+                  if (err) {
+                    console.log('Calculation is not readable');s
+                    process.exit(1);
+                  }
+
+                  const allowList = /^[ZERO|ADD|MULT|SUCC|\(|\) ]+$/;
+                  const isValid = allowList.test(data);
+
+                  if (isValid) {
+                    console.log('Seems legit');
+                    process.exit(0);
+                  } else {
+                    console.log('The calculator only understands ZERO, SUCC, ADD, MULT');
+                    process.exit(1);
+                  }
+                });
+              </code>
+            </pre>
+          </section>
+          <section>
+            <h4>Under the hood of &nbsp;<code>npm run calculate</code></h4>
+            <pre class="javascript">
+              <code data-trim data-noescape data-line-numbers="|4-5|7-10|12-13|15|17|19">
+                const fs = require('fs');
+                const path = require('path');
+
+                const filePath = path.join(__dirname, '../calculation.txt');
+                const resultPath = path.normalize(path.join(__dirname, `../results/${process.argv[2]}`));
+
+                const ZERO = f => x => x;
+                const SUCC = n => f => x => f(n(f)(x));
+                const ADD = m => n => f => x => m(f)(n(f)(x));
+                const MULT = m => n => f => x => m(n(f))(x);
+
+                const TO_NUMBER = n => n(x => x + 1)(0);
+                const TO_STRING = n => `${TO_NUMBER(n)}`;
+
+                fs.readFile(filePath, 'utf8', (err, data) => {
+                  try {
+                    const result = eval(data);
+
+                    fs.writeFile(resultPath, TO_STRING(result), 'utf8', (err) => {
+                      if (err) {
+                        console.error('Error writing to file');
+                      }
+                    });
+                  } catch (error) {
+                    console.error('Error');
+                  }
+                });
+              </code>
+            </pre>
+            <p class="fragment fade-in"><a target="_blank" href="https://github.com/clinton3141/inconvenient-calculator/actions/workflows/push-calculator-church-encoding.yml">Go</a></p>
+          </section>
+          <section>
+            <iframe src="https://giphy.com/embed/cKseZ404p9W8ygnNb5" width="480" height="360" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+          </section>
+          <section>
+            <h2>Mission complete ✅</h2>
+            <iframe src="https://giphy.com/embed/5xtDarIN81U0KvlnzKo" width="480" height="444" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+          </section>
         </section>
-
         <section>
-          <h2>Here's an editor with N predefined</h2>
-          <script>
-            const N = n => n(x => x + 1)(0)
-          </script>
-          <pre>
-          <code class="language-klipse-js">
-            ZERO = f => a => a
-            ONE = f => a => f(a)
-            N(f => a => a)
-          </code>
-          </pre>
+          <h2>Recap 🔭</h2>
+          <p class="fragment" data-fragment-index="1">We built a pretty infuriating and useless calculator.</p>
+          <p class="fragment" data-fragment-index="2"><span class="fragment highlight-red" data-fragment-index="2"><span data-fragment-index="3" class="fragment semi-fade-out">But we've actually seen...</span></span></p>
+          <ul>
+            <li class="fragment" data-fragment-index="3">the structure of actions</li>
+            <li class="fragment" data-fragment-index="4">various trigger types</li>
+            <li class="fragment" data-fragment-index="5">how to think about automations as a series of steps</li>
+            <li class="fragment" data-fragment-index="6">dependencies between jobs</li>
+            <li class="fragment" data-fragment-index="7">how to use the checkout and cache actions</li>
+            <li class="fragment" data-fragment-index="8"><span data-fragment-index="8" class="fragment highlight-green">everything you need to build useful actions!</span></li>
+          </ul>
         </section>
-
         <section>
-          <h2>Here's some maths</h2>
-          \[ \begin{align*} \dot{x} & = \sigma(y-x) \\ \dot{y} & = \rho x - y -
-          xz \\ \dot{z} & = -\beta z + xy\end{align*} \]
+          <iframe src="https://giphy.com/embed/xFsZm5xcCq6pa" width="480" height="360" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+        </section>
+        <section>
+          <h2>Resources</h2>
+          <ul>
+            <li><a href="https://docs.github.com/en/actions">GitHub Actions documentation</a></li>
+            <li><a href="https://github.com/actions">Official Actions</a></li>
+            <li><a href="https://en.wikipedia.org/wiki/Church_encoding">Church Encoding</a></li>
         </section>
       </div>
     </div>
