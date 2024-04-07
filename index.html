@@ -235,10 +235,8 @@
           <section>
             <h2>Hello world 👋</h2>
             <pre class="yaml">
-              <code data-line-numbers="|1-3|4-5|6-21|7-9|10-11|12-13" data-trim data-noescape>
+              <code data-line-numbers="|1|2-3|4-11|7-9|10-11" data-trim data-noescape>
 name: Hello world
-permissions:
-  discussions: write
 on:
   workflow_dispatch:
 jobs:
@@ -276,7 +274,7 @@ jobs:
           </section>
           <section>
             <pre class="yaml">
-            <code data-line-numbers="|1|2-3|4-11|9-11" data-trim data-noescape>
+            <code data-line-numbers="|1|2-3|4-11|7-11" data-trim data-noescape>
               name: Simple Action Calculator
               on:
                 workflow_dispatch:
@@ -310,7 +308,7 @@ jobs:
           </section>
           <section>
             <pre class="yaml">
-            <code data-line-numbers="|1|2-17|18-25|2-4|5-8|9-12|13-17|18-19|21-25" data-trim data-noescape>
+            <code data-line-numbers="|1|2-17|4-8|9-12|13-17|18-25|18-19|21-25" data-trim data-noescape>
               name: Input Calculator
               on:
                 workflow_dispatch:
@@ -360,7 +358,7 @@ jobs:
           </section>
           <section>
             <pre class="yaml">
-              <code data-line-numbers="|1-3|4-8|9-51|2-3|4-7|9-10|10,13-17|18-28|23,24,27|29-31|32,35,36|37-41|42-45|46-53" data-trim data-noescape>
+              <code data-line-numbers="|1-3|2-3|4-8|4-7|9-51|9-10|13-17|18-28|23,24,27|29-31|32,35,36|37-41|42-45|46-53" data-trim data-noescape>
             name: Push calculator (bc)
             permissions:
               contents: write
@@ -431,7 +429,7 @@ jobs:
           </section>
           <section>
             <pre class="yaml">
-              <code data-line-numbers="|1-3|4-7|8-24|5-6|8,9,12-13|14-24" data-trim data-noescape>
+              <code data-line-numbers="|1-3|4-7|5-6|8-24|8,9,12-13|14-24" data-trim data-noescape>
                 name: Tidy Up
                 permissions:
                   contents: write
