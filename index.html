@@ -150,6 +150,7 @@
         <section>
           <section>
             <h1>Hello!</h1>
+            <p>Let's learn about GitHub Actions</p>
           </section>
           <section>
             <h2>The plan 🗺️</h2>
@@ -262,14 +263,17 @@ jobs:
           </ul>
         </section>
         <section>
+          <img src="./images/wat.jpeg" />
+        </section>
+        <section>
           <section>
             <h2>Let's start simple 🧸</h2>
           </section>
           <section>
-            <h2>Requirements</h2>
+            <h2>Requirements 🗒️</h2>
             <ul>
-              <li class="fragment">only calculate 3 + 4</li>
-              <li class="fragment">print the result to the screen</li>
+              <li class="fragment">calculate the value 3 + 4</li>
+              <li class="fragment">print the result the output</li>
             </ul>
           </section>
           <section>
@@ -300,7 +304,7 @@ jobs:
             <h2>Time to spice it<br />up a little 🌶️</h2>
           </section>
           <section>
-            <h2>Requirements</h2>
+            <h2>Requirements 🗒️</h2>
             <ul>
               <li class="fragment">ask the user for numbers and operation</li>
               <li class="fragment">do the calculation and print the result to the screen</li>
@@ -348,7 +352,7 @@ jobs:
             <h2>Now let's start to make it annoying 😤</h2>
           </section>
           <section>
-            <h2>Requirements</h2>
+            <h2>Requirements 🗒️</h2>
             <ul>
               <li class="fragment">write a calculation in a text file</li>
               <li class="fragment">commit the file and push to github</li>
@@ -421,7 +425,7 @@ jobs:
             <p class="fragment fade-in">But... let's really provoke the users by deleting their results</p>
           </section>
           <section>
-            <h2>Requirements</h2>
+            <h2>Requirements 🗒️</h2>
             <ul>
               <li class="fragment">run periodically (cron)</li>
               <li class="fragment">delete all results</li>
@@ -429,7 +433,7 @@ jobs:
           </section>
           <section>
             <pre class="yaml">
-              <code data-line-numbers="|1-3|4-7|5-6|8-24|8,9,12-13|14-24" data-trim data-noescape>
+              <code data-line-numbers="|1-3|4-7|5-6|8-24|8,9|11-13|14-23" data-trim data-noescape>
                 name: Tidy Up
                 permissions:
                   contents: write
@@ -467,7 +471,7 @@ jobs:
             <img class="fragment" src="./images/calculate-without-numbers.jpg" />
           </section>
           <section>
-            <h2>Aside: Church Encoding (numbers as functions)</h2>
+            <h2>Aside: Church Encoding (numbers as functions) 🧮</h2>
             <ul>
               <li class="fragment">think of numbers as repetitions instead of counts</li>
               <li class="fragment">we can build everything up from zero and a successor function</li>
@@ -475,7 +479,7 @@ jobs:
             </ul>
            </section>
            <section>
-            <h2>Let's dive into Lambda Calculus</h2>
+            <h2>Let's dive into Lambda Calculus 🤓</h2>
               <span class="fragment" data-fragment-index="1">
                 Some notation \[f^{\circ n}=\underbrace {f\circ f\circ \cdots \circ f} _{n{\text{ times}}}\]
               </span>
@@ -487,7 +491,7 @@ jobs:
             </span>
            </section>
            <section>
-            <h2>Let's invent it</h2>
+            <h2>Let's invent it ⚗️</h2>
             <pre>
               <code class="language-klipse-js">
     </code>
@@ -510,10 +514,10 @@ const MUL = a => b => f => x => a(b(f))(x)
             </aside>
           </section>
           <section>
-            <iframe src="https://giphy.com/embed/21I1WOUDnct4EmSNa6" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+            <img src="./images/succ(zero) batman.jpg" />
           </section>
           <section>
-            <h2>Requirements</h2>
+            <h2>Requirements 🗒️</h2>
             <ul>
               <li class="fragment">same as before but the text file cannot contain numbers</li>
               <li class="fragment">bonus: ensure the input is safe</li>
@@ -698,7 +702,7 @@ jobs:
             <p class="fragment fade-in"><a target="_blank" href="https://github.com/clinton3141/inconvenient-calculator/actions/workflows/push-calculator-church-encoding.yml">Go</a></p>
           </section>
           <section>
-            <h2>Actual footage of a user</h2>
+            <h2>Live footage of<br/>one of our users 🎥</h2>
             <iframe src="https://giphy.com/embed/cKseZ404p9W8ygnNb5" width="480" height="360" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
           </section>
           <section>
@@ -725,6 +729,7 @@ jobs:
         <section>
           <h2>Resources</h2>
           <ul>
+            <li><a href="https://github.com/clinton3141/inconvenient-calculator">Actions from this talk</a></li>
             <li><a href="https://docs.github.com/en/actions">GitHub Actions documentation</a></li>
             <li><a href="https://github.com/actions">Official Actions</a></li>
             <li><a href="https://en.wikipedia.org/wiki/Church_encoding">Church Encoding</a></li>
