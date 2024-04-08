@@ -168,7 +168,8 @@
             <ul>
               <li class="fragment">Introduce GitHub Actions</li>
               <li class="fragment">Demystify their structure</li>
-              <li class="fragment">Work through some simple and then complex examples</li>
+              <li class="fragment">Work through some simple examples</li>
+              <li class="fragment">Get to an involved example</li>
               <li class="fragment">Give you the confidence to write your own</li>
             </ul>
           </section>
@@ -252,7 +253,7 @@ name: Hello world
 on:
   workflow_dispatch:
 jobs:
-  job1:
+  salutations:
     runs-on: ubuntu-latest
     steps:
       - name: Hello world
@@ -451,7 +452,7 @@ jobs:
             <h2>Aside: Church Encoding (numbers as functions) 🧮</h2>
             <ul>
               <li class="fragment">think of numbers as repetitions instead of counts</li>
-              <li class="fragment">we can build everything up from zero and a successor function</li>
+              <li class="fragment">we just need zero and a successor function</li>
               <li class="fragment">described in "Church, A. (1941) The Calculi of Lambda-Conversion.<br/>Annals of Mathematics Studies No. 6, Princeton University Press"</li>
             </ul>
            </section>
