@@ -36,7 +36,7 @@
         max-height: 90vh;
         height: auto;
         overflow: auto;
-        font-size: 0.70em;
+        font-size: 0.65em;
       }
 
       /* Reset some reveal.js and oer-reveal settings: */
@@ -285,40 +285,6 @@ jobs:
           <section>
             <h2>Requirements 🗒️</h2>
             <ul>
-              <li class="fragment">calculate the value 3 + 4</li>
-              <li class="fragment">echo the result to the output</li>
-            </ul>
-          </section>
-          <section>
-            <pre class="yaml">
-            <code data-line-numbers="|1|2-3|4-11|7-11" data-trim data-noescape>
-              name: Simple Action Calculator
-              on:
-                workflow_dispatch:
-              jobs:
-                calculate:
-                  runs-on: ubuntu-latest
-                  steps:
-                    - name: Perform calculation
-                      run: |
-                        CALCULATION="3 + 4"
-                        echo "$CALCULATION = $(( CALCULATION ))"
-            </code>
-            </pre>
-            <p class="fragment"><a href="https://github.com/clinton3141/inconvenient-calculator/actions/workflows/simple-action-calculator.yml" target="_blank" onclick="javascript:Reveal.next()">Go</a></p>
-          </section>
-          <section>
-            <h2>Job done</h2>
-            <iframe src="https://giphy.com/embed/3o7btNa0RUYa5E7iiQ" width="480" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
-          </section>
-        </section>
-        <section>
-          <section>
-            <h2>Time to spice it<br />up a little 🌶️</h2>
-          </section>
-          <section>
-            <h2>Requirements 🗒️</h2>
-            <ul>
               <li class="fragment">ask the user for numbers and operation <code>+</code> or <code>*</code></li>
               <li class="fragment">echo the result to the output</li>
             </ul>
@@ -356,8 +322,8 @@ jobs:
           <p class="fragment"><a target="_blank" onclick="javascript:Reveal.next()" href="https://github.com/clinton3141/inconvenient-calculator/actions/workflows/input-calculator.yml">Go</a></p>
           </section>
           <section>
-            <h2>Nice</h2>
-            <iframe src="https://giphy.com/embed/111ebonMs90YLu" width="480" height="360" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+            <h2>Job done</h2>
+            <iframe src="https://giphy.com/embed/3o7btNa0RUYa5E7iiQ" width="480" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
             <p class="fragment">But that UX isn't <em>terrible</em>.<br />Can we make it worse?</p>
           </section>
         </section>
@@ -473,7 +439,7 @@ jobs:
           </section>
           <section>
             <h2>That's pretty annoying</h2>
-            <iframe src="https://giphy.com/embed/S2whkd4LyloiI" width="417" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+            <iframe src="https://giphy.com/embed/vUEznRmVQfG2Q" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
             <p class="fragment">...but can we make it worse?</p>
           </section>
         </section>
@@ -490,15 +456,15 @@ jobs:
             </ul>
            </section>
            <section>
-            <h2>Let's dive into Lambda Calculus 🤓</h2>
+            <h2>A dive into the theory 🤓</h2>
               <span class="fragment" data-fragment-index="1">
-                Some notation \[f^{\circ n}=\underbrace {f\circ f\circ \cdots \circ f} _{n{\text{ times}}}\]
+                \[f^{\circ n}=\underbrace {f\circ f\circ \cdots \circ f} _{n{\text{ times}}}\]
               </span>
               <span class="fragment" data-fragment-index="2">
-                Y combinator for recursion \[Y=\lambda f.\ (\lambda x.f\ (x\ x))\ (\lambda x.f\ (x\ x))\]
+                \[((\lambda x.M)\ N)\rightarrow (M[x:=N])\]
               </span>
             <span class="fragment" data-fragment-index="3">
-              <img src="./images/Trollface.png" data-fragment-index="3" class="fragment grow" style="position: absolute; top:200px; left: 40%" />
+              <img src="./images/Trollface.png" data-fragment-index="3" class="fragment grow" style="position: absolute; top:100px; left: 40%" />
             </span>
            </section>
            <section id="lab">
@@ -525,9 +491,6 @@ const MUL = a => b => f => x => a(b(f))(x)
             </aside>
           </section>
           <section>
-            <img src="./images/succ(zero) batman.jpg" />
-          </section>
-          <section>
             <h2>Requirements 🗒️</h2>
             <ul>
               <li class="fragment">same as before but the text file cannot contain numbers</li>
@@ -536,7 +499,10 @@ const MUL = a => b => f => x => a(b(f))(x)
               <li class="fragment">bonus: use scripts</li>
             </ul>
           </section>
-
+          <section>
+            <h2>In other words</h2>
+            <img src="./images/succ(zero) batman.jpg" />
+          </section>
           <section>
             <pre class="yaml">
               <code data-line-numbers="|1-3|4-8|9-107|10-29|30-37|38-41|42-43|44-49|50-55|56-58|59-64|65-69|70-73|74-79|80-81|82-86|87-90|91-96|97-99|100-107" data-noescape>name: Push calculator (church)
