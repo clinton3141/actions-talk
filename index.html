@@ -132,6 +132,10 @@
       .cm-s-default .CodeMirror-linenumber {
         color: #75715e;
       }
+      #lab .code-wrapper {
+        min-height: 580px;
+        box-shadow: none !important;
+      }
     </style>
     <script>
       window.klipse_settings = {
@@ -144,6 +148,7 @@
     </script>
     <script>
       const N = n => n(x => x + 1)(0);
+      const _SUCC = n => f => a => f(n(f)(a));
       const _ADD = m => n => f => a => m(f)(n(f)(a));
       const _MULT = m => n => f => a => m(n(f))(a);
     </script>
@@ -162,7 +167,8 @@
             <ul>
               <li class="fragment">Introduce GitHub Actions</li>
               <li class="fragment">Demystify their structure</li>
-              <li class="fragment">Iterate towards building a complicated action</li>
+              <li class="fragment">Work through some simple and then complex examples</li>
+              <li class="fragment">Give you the confidence to write your own</li>
             </ul>
           </section>
         </section>
@@ -280,7 +286,7 @@ jobs:
             <h2>Requirements 🗒️</h2>
             <ul>
               <li class="fragment">calculate the value 3 + 4</li>
-              <li class="fragment">print the result the output</li>
+              <li class="fragment">echo the result to the output</li>
             </ul>
           </section>
           <section>
@@ -313,8 +319,8 @@ jobs:
           <section>
             <h2>Requirements 🗒️</h2>
             <ul>
-              <li class="fragment">ask the user for numbers and operation</li>
-              <li class="fragment">do the calculation and print the result to the screen</li>
+              <li class="fragment">ask the user for numbers and operation <code>+</code> or <code>*</code></li>
+              <li class="fragment">echo the result to the output</li>
             </ul>
           </section>
           <section>
@@ -363,8 +369,8 @@ jobs:
             <ul>
               <li class="fragment">write a calculation in a text file</li>
               <li class="fragment">commit the file and push to github</li>
-              <li class="fragment">result is written to another text file</li>
-              <li class="fragment">pull from github to get the result</li>
+              <li class="fragment">result is calculated and stored in a file</li>
+              <li class="fragment">file is added to the repo and pushed</li>
             </ul>
           </section>
           <section>
@@ -497,7 +503,7 @@ jobs:
               <img src="./images/Trollface.png" data-fragment-index="3" class="fragment grow" style="position: absolute; top:200px; left: 40%" />
             </span>
            </section>
-           <section>
+           <section id="lab">
             <h2>Let's invent it ⚗️</h2>
             <pre>
               <code class="language-klipse-js">
@@ -643,6 +649,7 @@ jobs:
         git pull --rebase
         git push
           </pre></code>
+          <p class="fragment"><small>Note: <a href="https://github.com/actions/upload-artifact" target="_blank">actions/upload-artifact</a> and <a href="https://github.com/actions/upload-artifact" target="_blank">actions/download-artefact</a> are a better real-world choice for builds</small></p>
           </section>
           <section>
             <h4>Under the hood of &nbsp;<code>npm run safety-check</code></h4>
