@@ -214,7 +214,7 @@
             <h2>Anatomy of<br/>an action 🔬</h2>
             <ol>
               <li class="fragment" data-fragment-index="1">
-                Options for customising the action,<br />its environment and permissions
+                Its name and some options
                 <!-- <span class="fragment" data-fragment-index="2">
                   <span class="fragment highlight-red" data-fragment-index="2">
                     <span class="fragment semi-fade-out" data-fragment-index="3">
@@ -224,7 +224,7 @@
                 </span> -->
               </li>
               <li class="fragment" data-fragment-index="3">
-                Triggers and configuration<br />
+                Triggers and their configuration<br />
                 <!-- <span class="fragment" data-fragment-index="4">
                   <span class="fragment highlight-red" data-fragment-index="4">
                     <span class="fragment semi-fade-out" data-fragment-index="5">
@@ -234,7 +234,7 @@
                 </span> -->
               </li>
               <li class="fragment" data-fragment-index="5">
-                List of jobs with steps to<br />complete their task<br />
+                List of jobs with steps to<br/>complete the task
                 <!-- <span class="fragment" data-fragment-index="6">
                   <span class="fragment highlight-red" data-fragment-index="6">
                     <span class="fragment semi-fade-out" data-fragment-index="7">
@@ -286,7 +286,7 @@ jobs:
           <section>
             <h2>Requirements 🗒️</h2>
             <ul>
-              <li class="fragment">ask the user for numbers and operation <code>+</code> or <code>*</code></li>
+              <li class="fragment">ask the user for two numbers and an operation</li>
               <li class="fragment">echo the result to the output</li>
             </ul>
           </section>
@@ -492,6 +492,10 @@ const MUL = a => b => f => x => a(b(f))(x)
             </aside>
           </section>
           <section>
+            <h2>In other words</h2>
+            <img src="./images/succ(zero) batman.jpg" />
+          </section>
+          <section>
             <h2>Requirements 🗒️</h2>
             <ul>
               <li class="fragment">same as before but the text file cannot contain numbers</li>
@@ -499,10 +503,6 @@ const MUL = a => b => f => x => a(b(f))(x)
               <li class="fragment">bonus: use a build system</li>
               <li class="fragment">bonus: use scripts</li>
             </ul>
-          </section>
-          <section>
-            <h2>In other words</h2>
-            <img src="./images/succ(zero) batman.jpg" />
           </section>
           <section>
             <pre class="yaml">
@@ -540,8 +540,6 @@ jobs:
     needs: [check-for-calculation]
     if: ${{ needs.check-for-calculation.outputs.has_calculation == 'true' }}
     runs-on: ubuntu-latest
-    outputs:
-      cache-hit: ${{ steps.restore-modules.outputs.cache-hit }}
     steps:
       - name: checkout
         uses: actions/checkout@v4
